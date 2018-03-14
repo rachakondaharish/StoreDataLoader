@@ -1,0 +1,93 @@
+<!-- <?xml version=“1.0” encoding=“ISO-8859-1”?> -->
+<tns:STORES>
+		<tns:STORE Id="00001">
+            <tns:STR_NBR>0000134</tns:STR_NBR>
+            <tns:ABBR_NAME>Store # 0000445</tns:ABBR_NAME>
+            <tns:STAT_CD>14</tns:STAT_CD >
+            <tns:STAT_DSC>Open</tns:STAT_DSC>
+            <tns:STREET_ADDR1>1497 ROUTE 206</tns:STREET_ADDR1>
+            <tns:CITY_NAME>TABERNACLE</tns:CITY_NAME>
+            <tns:STATE_CD>NJ</tns:STATE_CD>
+            <tns:ZIP_CD>08088</tns:ZIP_CD>
+            <tns:COUNTY_CD>34005</tns:COUNTY_CD>
+            <tns:COUNTY_CD_DSC>BURLINGTON,NJ</tns:COUNTY_CD_DSC>
+            <tns:OPCO_DSC>CVS Pharmacy</tns:OPCO_DSC>
+            <tns:BUS_SEGMENT>Retail</tns:BUS_SEGMENT>
+            <tns:FACILITY_TYP_CD>RX</tns:FACILITY_TYP_CD>
+            <tns:FACILITY_TYP_DSC>Retail CVS/Pharmacy</tns:FACILITY_TYP_DSC>
+            <tns:DIV_NAME>DIVISION 01</tns:DIV_NAME>
+            <tns:FS_AREA_NBR>02</tns:FS_AREA_NBR>
+            <tns:FS_REGION_NBR>11</tns:FS_REGION_NBR>
+            <tns:FS_DISTRICT_NBR>09</tns:FS_DISTRICT_NBR>
+            <tns:RX_AREA_NBR>02</tns:RX_AREA_NBR>
+            <tns:RX_REGION_NBR>11</tns:RX_REGION_NBR>
+            <tns:RX_DISTRICT_NBR>29</tns:RX_DISTRICT_NBR>
+            <tns:LATITUDE>39.84858</tns:LATITUDE>
+            <tns:LONGITUDE>-74.73498</tns:LONGITUDE>
+            <tns:RX_PHONE_NBR>609-268-0279</tns:RX_PHONE_NBR>
+            <tns:DSTR_MGR_FNME>Amanda</tns:DSTR_MGR_FNME>
+            <tns:DSTR_MGR_LNME>Tracy</tns:DSTR_MGR_LNME>
+            <tns:DSTR_MGR_EMAIL>Amanda.Tracy@CVSHealth.com</tns:DSTR_MGR_EMAIL>
+            <tns:DIV_CD>19</tns:DIV_CD>
+	</tns:STORE>
+	<tns:STORE Id="00002">
+            <tns:STR_NBR>00003</tns:STR_NBR>
+            <tns:ABBR_NAME>Store # 00003</tns:ABBR_NAME>
+            <tns:STAT_CD>14</tns:STAT_CD >
+            <tns:STAT_DSC>Open</tns:STAT_DSC>
+            <tns:STREET_ADDR1>1497 ROUTE 206</tns:STREET_ADDR1>
+            <tns:CITY_NAME>TABERNACLE</tns:CITY_NAME>
+            <tns:STATE_CD>NJ</tns:STATE_CD>
+            <tns:ZIP_CD>08088</tns:ZIP_CD>
+            <tns:COUNTY_CD>34005</tns:COUNTY_CD>
+            <tns:COUNTY_CD_DSC>BURLINGTON,NJ</tns:COUNTY_CD_DSC>
+            <tns:OPCO_DSC>CVS Pharmacy</tns:OPCO_DSC>
+            <tns:BUS_SEGMENT>Retail</tns:BUS_SEGMENT>
+            <tns:FACILITY_TYP_CD>RX</tns:FACILITY_TYP_CD>
+            <tns:FACILITY_TYP_DSC>Retail CVS/Pharmacy</tns:FACILITY_TYP_DSC>
+            <tns:DIV_NAME>DIVISION 01</tns:DIV_NAME>
+            <tns:FS_AREA_NBR>02</tns:FS_AREA_NBR>
+            <tns:FS_REGION_NBR>11</tns:FS_REGION_NBR>
+            <tns:FS_DISTRICT_NBR>09</tns:FS_DISTRICT_NBR>
+            <tns:RX_AREA_NBR>02</tns:RX_AREA_NBR>
+            <tns:RX_REGION_NBR>11</tns:RX_REGION_NBR>
+            <tns:RX_DISTRICT_NBR>29</tns:RX_DISTRICT_NBR>
+            <tns:LATITUDE>39.84858</tns:LATITUDE>
+            <tns:LONGITUDE>-74.73498</tns:LONGITUDE>
+            <tns:RX_PHONE_NBR>609-268-0279</tns:RX_PHONE_NBR>
+            <tns:DSTR_MGR_FNME>Amanda</tns:DSTR_MGR_FNME>
+            <tns:DSTR_MGR_LNME>Tracy</tns:DSTR_MGR_LNME>
+            <tns:DSTR_MGR_EMAIL>Amanda.Tracy@CVSHealth.com</tns:DSTR_MGR_EMAIL>
+            <tns:DIV_CD>17</tns:DIV_CD>
+	</tns:STORE>
+	<tns:STORE Id="00003">
+            <tns:STR_NBR>00003</tns:STR_NBR>
+            <tns:ABBR_NAME>Store # 00003</tns:ABBR_NAME>
+            <tns:STAT_CD>14</tns:STAT_CD >
+            <tns:STAT_DSC>Open</tns:STAT_DSC>
+            <tns:STREET_ADDR1>1497 ROUTE 206</tns:STREET_ADDR1>
+            <tns:CITY_NAME>TABERNACLE</tns:CITY_NAME>
+            <tns:STATE_CD>NJ</tns:STATE_CD>
+            <tns:ZIP_CD>08088</tns:ZIP_CD>
+            <tns:COUNTY_CD>34005</tns:COUNTY_CD>
+            <tns:COUNTY_CD_DSC>BURLINGTON,NJ</tns:COUNTY_CD_DSC>
+            <tns:OPCO_DSC>CVS Pharmacy</tns:OPCO_DSC>
+            <tns:BUS_SEGMENT>Retail</tns:BUS_SEGMENT>
+            <tns:FACILITY_TYP_CD>RX</tns:FACILITY_TYP_CD>
+            <tns:FACILITY_TYP_DSC>Retail CVS/Pharmacy</tns:FACILITY_TYP_DSC>
+            <tns:DIV_NAME>DIVISION 01</tns:DIV_NAME>
+            <tns:FS_AREA_NBR>02</tns:FS_AREA_NBR>
+            <tns:FS_REGION_NBR>11</tns:FS_REGION_NBR>
+            <tns:FS_DISTRICT_NBR>09</tns:FS_DISTRICT_NBR>
+            <tns:RX_AREA_NBR>02</tns:RX_AREA_NBR>
+            <tns:RX_REGION_NBR>11</tns:RX_REGION_NBR>
+            <tns:RX_DISTRICT_NBR>29</tns:RX_DISTRICT_NBR>
+            <tns:LATITUDE>39.84858</tns:LATITUDE>
+            <tns:LONGITUDE>-74.73498</tns:LONGITUDE>
+            <tns:RX_PHONE_NBR>609-268-0279</tns:RX_PHONE_NBR>
+            <tns:DSTR_MGR_FNME>Amanda</tns:DSTR_MGR_FNME>
+            <tns:DSTR_MGR_LNME>Tracy</tns:DSTR_MGR_LNME>
+            <tns:DSTR_MGR_EMAIL>Amanda.Tracy@CVSHealth.com</tns:DSTR_MGR_EMAIL>
+            <tns:DIV_CD>10</tns:DIV_CD>
+	</tns:STORE>
+</tns:STORES>
