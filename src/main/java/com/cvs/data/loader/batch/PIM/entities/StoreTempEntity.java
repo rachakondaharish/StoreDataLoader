@@ -1,5 +1,6 @@
-package com.cvs.store.data.loader.storeDataLoader.entities;
+package com.cvs.data.loader.batch.PIM.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,43 +9,71 @@ import javax.persistence.Table;
 
 @Table
 @Entity(name = "Harish_Store")
-public class StoreEntity {
+public class StoreTempEntity {
 	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
-	
+	@Column(name="STORE_Id")
 	int storeId;
-	String STR_NBR;
-    String ABBR_NAME;
+	@Column(name="STORE_nbr")
+	int STR_NBR;
+	@Column(name="STATUS")
     String STAT_CD;
-    String STAT_DSC;
+	@Column(name="Address_line_1")
     String STREET_ADDR1;
+	@Column(name="City")
     String CITY_NAME;
+	@Column(name="State_CD")
     String STATE_CD;
+	@Column(name="ZIP_CD")
     String ZIP_CD;
+	@Column(name="COUNTY_CD")
     String COUNTY_CD;
+	@Column(name="COUNTY_CD_DSC")
     String COUNTY_CD_DSC;
+	@Column(name="OPCO_DSC")
     String OPCO_DSC;
+	@Column(name="BUS_SEGMENT")
     String BUS_SEGMENT;
+	@Column(name="FACILITY_TYP_CD")
     String FACILITY_TYP_CD;
+	@Column(name="FACILITY_TYP_DSC")
     String FACILITY_TYP_DSC;
+	@Column(name="Division_Name")
     String DIV_NAME;
+	@Column(name="FS_AREA_NBR")
     String FS_AREA_NBR;
+	@Column(name="FS_REGION_NBR")
     String FS_REGION_NBR;
+	@Column(name="FS_DISTRICT_NBR")
     String FS_DISTRICT_NBR;
+	@Column(name="RX_AREA_NBR")
     String RX_AREA_NBR;
+	@Column(name="RX_REGION_NBR")
     String RX_REGION_NBR;
+	@Column(name="RX_DISTRICT_NBR")
     String RX_DISTRICT_NBR;
+	@Column(name="LATITUDE")
     String LATITUDE;
+	@Column(name="LONGITUDE")
     String LONGITUDE;
+	@Column(name="RX_PHONE_NBR")
     String RX_PHONE_NBR;
+	@Column(name="DSTR_MGR_First_Name")
     String DSTR_MGR_FNME;
+	@Column(name="DSTR_MGR_Last_Name")
     String DSTR_MGR_LNME;
+	@Column(name="DSTR_MGR_Phone_nbr")
+    String DSTR_MGR_Phone_nbr;
+	@Column(name="DSTR_MGR_EMAIL")
     String DSTR_MGR_EMAIL;
-    String DIV_CD;
-	public int getId() {
+	@Column(name="deleteStatus")
+    Boolean deleteStatus = false;
+	
+    
+    public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -56,30 +85,20 @@ public class StoreEntity {
 	public void setStoreId(int storeId) {
 		this.storeId = storeId;
 	}
-	public String getSTR_NBR() {
+	public int getSTR_NBR() {
 		return STR_NBR;
 	}
-	public void setSTR_NBR(String sTR_NBR) {
+	public void setSTR_NBR(int sTR_NBR) {
 		STR_NBR = sTR_NBR;
 	}
-	public String getABBR_NAME() {
-		return ABBR_NAME;
-	}
-	public void setABBR_NAME(String aBBR_NAME) {
-		ABBR_NAME = aBBR_NAME;
-	}
+	
 	public String getSTAT_CD() {
 		return STAT_CD;
 	}
 	public void setSTAT_CD(String sTAT_CD) {
 		STAT_CD = sTAT_CD;
 	}
-	public String getSTAT_DSC() {
-		return STAT_DSC;
-	}
-	public void setSTAT_DSC(String sTAT_DSC) {
-		STAT_DSC = sTAT_DSC;
-	}
+	
 	public String getSTREET_ADDR1() {
 		return STREET_ADDR1;
 	}
@@ -218,11 +237,12 @@ public class StoreEntity {
 	public void setDSTR_MGR_EMAIL(String dSTR_MGR_EMAIL) {
 		DSTR_MGR_EMAIL = dSTR_MGR_EMAIL;
 	}
-	public String getDIV_CD() {
-		return DIV_CD;
+	
+	public Boolean getDeleteStatus() {
+		return deleteStatus;
 	}
-	public void setDIV_CD(String dIV_CD) {
-		DIV_CD = dIV_CD;
+	public void setDeleteStatus(Boolean deleteStatus) {
+		this.deleteStatus = deleteStatus;
 	}
     
     
