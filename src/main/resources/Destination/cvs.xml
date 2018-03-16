@@ -1,5 +1,5 @@
 <!-- <?xml version=“1.0” encoding=“ISO-8859-1”?> -->
-<tns:STORES>
+<tns:STORES xmlns:xsi="http://www.w3.org/2001/XMLschema-instance" xsi:schemaLocation="http://www.cvscaremark.com/retail/mdm/entities/1_0vcs_store.xsd" xmlns:tns="http://www.cvscaremark.com/retail/mdm/entities/1_0"> 
 	<tns:STORE Id="00001">
 		<tns:STR_NBR>00001</tns:STR_NBR>
 		<tns:ABBR_NAME>Store # 0000445</tns:ABBR_NAME>
