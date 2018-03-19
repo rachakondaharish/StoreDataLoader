@@ -6,7 +6,7 @@
 //
 
 
-package com.cvs.data.loader.batch.parseXml;
+package com.cvs.PIM.parseXml;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.auditing;
+package com.cvs.PIM.auditing;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.AuditorAware;

@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.entities;
+package com.cvs.PIM.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

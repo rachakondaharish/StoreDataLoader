@@ -1,4 +1,4 @@
-package com.cvs.store.data.loader.StoreDataLoader;
+package com.cvs.PIM.StoreDataLoader;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

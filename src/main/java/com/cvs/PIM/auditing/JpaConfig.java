@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.auditing;
+package com.cvs.PIM.auditing;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

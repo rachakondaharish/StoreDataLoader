@@ -1,9 +1,9 @@
-package com.cvs.data.loader.batch.PIM.jpa;
+package com.cvs.PIM.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import com.cvs.data.loader.batch.PIM.entities.StoresEntity;
+import com.cvs.PIM.entities.StoresEntity;
 
 
 @Service

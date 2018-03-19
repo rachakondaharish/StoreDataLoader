@@ -1,11 +1,12 @@
-package com.cvs.data.loader.batch.PIM.entities;
+package com.cvs.PIM.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.cvs.vaccine.clinic.scheduler.clinic_schedule.auditing.Auditable;
+import com.cvs.PIM.auditing.Auditable;
+
 
 @Table
 @Entity(name = "Harish_1")

@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.batachJob;
+package com.cvs.PIM.batachJob;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.cvs.data.loader.batch.PIM.constants.Constants;
-import com.cvs.data.loader.batch.PIM.services.Services;
-import com.cvs.data.loader.batch.parseXml.STORES;
+import com.cvs.PIM.constants.Constants;
+import com.cvs.PIM.parseXml.STORES;
+import com.cvs.PIM.services.Services;
 
 @Component
-public class XmlLoaderBatch {
+public class XmlLoader {
 
 	@Autowired
 	Services services;
@@ -53,16 +53,5 @@ public class XmlLoaderBatch {
 
 	}
 
-	//@Scheduled(cron = "${store.data.load.scheduler}")
-	public static void marshalXml() throws Exception {
-		JAXBContext jc = JAXBContext.newInstance(STORES.class);
-		
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		STORES stores = (STORES) unmarshaller.unmarshal(new File("/Users/hrachako/Documents/Personal/files/cvs.xml"));
-
-		Marshaller marshaller = jc.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		
-	}
 
 }

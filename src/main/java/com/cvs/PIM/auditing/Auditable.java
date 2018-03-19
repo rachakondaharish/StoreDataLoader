@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.auditing;
+package com.cvs.PIM.auditing;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 

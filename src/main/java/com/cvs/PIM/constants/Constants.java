@@ -1,4 +1,4 @@
-package com.cvs.data.loader.batch.PIM.constants;
+package com.cvs.PIM.constants;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,4 +14,9 @@ public class Constants {
 	
 	@Value("${xml.file.location.sourceFile}")
 	public String sourcepath;
+
+	@Value("${load.records.temp.table.count}")
+	public int tempTableCount;
+	@Value("${load.records.final.table.count}")
+	public int finalTableCount;
 }
