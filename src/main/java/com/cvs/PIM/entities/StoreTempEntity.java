@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
-@Entity(name = "Harish_Store")
+@Entity(name = "Store")
 public class StoreTempEntity {
 	
 	

@@ -9,7 +9,7 @@ import com.cvs.PIM.auditing.Auditable;
 
 
 @Table
-@Entity(name = "Harish_1")
+@Entity(name = "feed_store")
 public class StoresEntity extends Auditable<String>  {
 	
 	@Column(name="STORE_Id")

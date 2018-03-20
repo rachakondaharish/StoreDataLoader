@@ -2,25 +2,21 @@ package com.cvs.PIM.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Value;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.catalina.Store;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import com.cvs.PIM.constants.Constants;
 import com.cvs.PIM.entities.StoreTempEntity;
@@ -98,8 +94,42 @@ public class Services {
 			e.printStackTrace();
 		}
 	}
+	
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+	@Value("${spring.datasource.username}")
+	String createAndUpdatedBy ;
+	@Value("${feed.store.table.name}")
+	String feedStore ;
+	@Value("${final.store.table.name}")
+	String finalStore ;
+	
+	
+	public void moveFromTempToStoresUsingJDBC(){
+	
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		String cuurentDateTime=sdf.format(new Date());
 
-	public void moveFromTempToStores() {
+		
+		int count = jdbcTemplate.queryForObject("select count(*) from harish_store", Integer.class);
+		System.out.println("Copying records: "+count);
+		jdbcTemplate.execute("DELETE FROM harish_1");
+		String sql = "insert into "+feedStore+" (store_nbr, created_by, created_date, last_modified_by, last_modified_date, bus_segment, city, county_cd, county_cd_dsc,"
+				+"division_name, dstr_mgr_email, dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr,fs_district_nbr,"+
+				" fs_region_nbr, latitude, longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd, store_id)"+
+				"select store_nbr, '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', bus_segment, city, county_cd, county_cd_dsc, division_name, dstr_mgr_email, "
+				+ "dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr, fs_district_nbr, fs_region_nbr, latitude,"
+				+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd, store_id  from "+finalStore;
+
+		
+		System.out.println(sql);
+		jdbcTemplate.execute(sql);
+		 
+	}
+	
+	
+	
+	public void moveFromTempToStoresUsingJPA() {
 		int k = storeTempRepository.findAll().size()/100;;
 		for(int j = 0; j<=k+1; j++ ){
 			List<StoreTempEntity> tempList = storeTempRepository.findTop100ByDeleteStatus(false);

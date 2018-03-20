@@ -38,11 +38,13 @@ public class XmlLoader {
 				System.out.println("File found.\nCopying to resources for processing: " + sourceXml);
 				services.copyfile(sourceXml, resourcesXML);
 
-				services.xmlToDatabaseUsingJAXB(resourcesXML);// Read and store to
-														// database
+				services.xmlToDatabaseUsingJAXB(resourcesXML);// Read and store to database
 
-				services.moveFromTempToStores();
-
+				//services.moveFromTempToStoresUsingJPA(); // copy records from table 1 to 2 using JPA 100 at a time - Update table 2
+				
+				services.moveFromTempToStoresUsingJDBC();
+				
+				
 				services.copyfile(resourcesXML, destinationXML);
 
 				services.cleanup(sourceXml, resourcesXML);
