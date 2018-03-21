@@ -6,7 +6,7 @@
 //
 
 
-package com.cvs.PIM.parseXml;
+package com.cvs.vcs.storefeed.fileparsingjJaxb;
 
 import java.util.ArrayList;
 import java.util.List;

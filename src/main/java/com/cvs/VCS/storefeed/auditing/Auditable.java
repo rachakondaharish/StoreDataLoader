@@ -1,4 +1,4 @@
-package com.cvs.PIM.auditing;
+package com.cvs.vcs.storefeed.auditing;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 

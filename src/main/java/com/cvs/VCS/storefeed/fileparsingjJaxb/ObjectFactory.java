@@ -6,7 +6,7 @@
 //
 
 
-package com.cvs.PIM.parseXml;
+package com.cvs.vcs.storefeed.fileparsingjJaxb;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

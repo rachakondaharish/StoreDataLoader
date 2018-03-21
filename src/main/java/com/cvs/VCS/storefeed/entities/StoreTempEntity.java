@@ -1,4 +1,4 @@
-package com.cvs.PIM.entities;
+package com.cvs.vcs.storefeed.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

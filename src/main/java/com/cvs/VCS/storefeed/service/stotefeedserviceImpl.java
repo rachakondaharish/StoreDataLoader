@@ -1,4 +1,4 @@
-package com.cvs.PIM.services;
+package com.cvs.vcs.storefeed.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
@@ -18,25 +17,36 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.cvs.PIM.constants.Constants;
-import com.cvs.PIM.entities.StoreTempEntity;
-import com.cvs.PIM.entities.StoresEntity;
-import com.cvs.PIM.jpa.StoreTempRepository;
-import com.cvs.PIM.jpa.StoresRepository;
-import com.cvs.PIM.parseXml.STORE;
-import com.cvs.PIM.parseXml.STORES;
+import com.cvs.vcs.storefeed.constants.Constants;
+import com.cvs.vcs.storefeed.entities.StoreTempEntity;
+import com.cvs.vcs.storefeed.entities.StoresEntity;
+import com.cvs.vcs.storefeed.fileparsingjJaxb.STORE;
+import com.cvs.vcs.storefeed.fileparsingjJaxb.STORES;
+import com.cvs.vcs.storefeed.repository.StoreTempRepository;
+import com.cvs.vcs.storefeed.repository.StoresRepository;
+
+
+
 
 @Component
-public class Services {
+public class stotefeedserviceImpl implements stotefeedservice {
 	@Autowired
 	StoreTempRepository storeTempRepository;
 	@Autowired
 	StoresRepository storesRepository;
 	@Autowired
 	Constants constants;
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+	@Value("${spring.datasource.username}")
+	String createAndUpdatedBy ;
+	@Value("${feed.store.table.name}")
+	String feedStore ;
+	@Value("${final.store.table.name}")
+	String finalStore ;
 
 	
-	public void xmlReadUsingJAXB(File fXmlFile) {
+	public void xmlReadUsingJaxBStoreUsingJPA(File fXmlFile) {
 		JAXBContext jc;
 		try {
 			
@@ -98,38 +108,54 @@ public class Services {
 		}
 	}
 
-	@Autowired
-    JdbcTemplate jdbcTemplate;
-	@Value("${spring.datasource.username}")
-	String createAndUpdatedBy ;
-	@Value("${feed.store.table.name}")
-	String feedStore ;
-	@Value("${final.store.table.name}")
-	String finalStore ;
+	public void xmlReadUsingJaxBStoreUsingJDBC(File fXmlFile){
+		JAXBContext jc;
+		try {
+			
+			jdbcTemplate.execute("DELETE FROM "+feedStore); //Deleteing all records temp table before new load
+			System.out.println("Deleting "+ feedStore +" table records.");
+			
+			jc = JAXBContext.newInstance(STORES.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			STORES stores = (STORES) unmarshaller.unmarshal(fXmlFile);
+			
+			System.out.println("Reading records from XML : "+stores.getSTORE().size());
+			long millis = System.currentTimeMillis();
+			for(int i=0; i<stores.getSTORE().size(); i++ ){
+				STORE xmlStore = stores.getSTORE().get(i);
+				
+				String values = "("+xmlStore.getSTRNBR()+",'"+xmlStore.getBUSSEGMENT()+"','"+xmlStore.getCITYNAME()+"','"+xmlStore.getCOUNTYCD()+"','"+
+						xmlStore.getCOUNTYCDDSC()+"','"+xmlStore.getDIVNAME()+"','"+xmlStore.getDSTRMGREMAIL()+"','"+xmlStore.getDSTRMGRFNME()+"','"+
+						xmlStore.getDSTRMGRLNME()+"','"+xmlStore.getDSTRMGRPHONENBR()+"','"+xmlStore.getFACILITYTYPCD()+"','"+xmlStore.getFACILITYTYPDSC()+"','"+"','"+xmlStore.getFSAREANBR()+"','"+
+						xmlStore.getFSDISTRICTNBR()+"','"+xmlStore.getFSREGIONNBR()+"','"+xmlStore.getLATITUDE()+"','"+xmlStore.getLONGITUDE()+"','"+
+						xmlStore.getOPCODSC()+"','"+xmlStore.getRXAREANBR()+"','"+xmlStore.getRXDISTRICTNBR()+"','"+xmlStore.getRXPHONENBR()+"','"+
+						xmlStore.getRXREGIONNBR()+"','"+xmlStore.getSTATECD()+"','"+xmlStore.getSTREETADDR1()+"','"+xmlStore.getZIPCD()+"')";
 	
-	
-	public void moveFromTempToStoresUsingJDBC(){
-	
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-		String cuurentDateTime=sdf.format(new Date());
+				String sql = "insert into "+finalStore+" (store_nbr, bus_segment, city, county_cd, county_cd_dsc, division_name, dstr_mgr_email, "
+						+ "dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr, fs_district_nbr, fs_region_nbr, latitude,"
+						+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd) VALUES "+values ;
 
-		
-		int count = jdbcTemplate.queryForObject("select count(*) from "+feedStore, Integer.class);
-		System.out.println("Copying records: "+count);
-		jdbcTemplate.execute("DELETE FROM "+finalStore);
-		String sql = "insert into "+finalStore+" (store_nbr, created_by, created_date, last_modified_by, last_modified_date, bus_segment, city, county_cd, county_cd_dsc,"
-				+"division_name, dstr_mgr_email, dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr,fs_district_nbr,"+
-				" fs_region_nbr, latitude, longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd)"+
-				"select store_nbr, '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', bus_segment, city, county_cd, county_cd_dsc, division_name, dstr_mgr_email, "
-				+ "dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr, fs_district_nbr, fs_region_nbr, latitude,"
-				+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd  from "+feedStore;
-
-		
-		//System.out.println(sql);
-		jdbcTemplate.execute(sql);
-		 
+				
+				System.out.println(sql);
+				jdbcTemplate.execute(sql);
+				System.out.println("Millis : "+ (System.currentTimeMillis()-millis));
+				millis = System.currentTimeMillis();
+//				if (i % constants.tempTableCount == 0) {
+//					System.out.println("Millis : "+ (System.currentTimeMillis()-millis));
+//					millis = System.currentTimeMillis();
+//					storeTempRepository.save(storeTempList);
+//					System.out.println("Inserted to temp table: "+i+" records "+new Date());
+//					storeTempList.clear();
+//				}
+				
+			}
+			
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
 	}
-	public void moveFromTempToStores() {
+
+	public void moveFromTempToStoresUsingJPA() {
 		
 		storesRepository.deleteAll(); //Deleteing all records final table before new load
 		int k = storeTempRepository.findAll().size()/100;
@@ -187,6 +213,28 @@ public class Services {
 		}
 
 	}
+	
+	public void moveFromTempToStoresUsingJDBC(){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		String cuurentDateTime=sdf.format(new Date());
+
+		
+		int count = jdbcTemplate.queryForObject("select count(*) from "+feedStore, Integer.class);
+		System.out.println("Copying records: "+count);
+		jdbcTemplate.execute("DELETE FROM "+finalStore);
+		String sql = "insert into "+finalStore+" (store_nbr, created_by, created_date, last_modified_by, last_modified_date, bus_segment, city, county_cd, county_cd_dsc,"
+				+"division_name, dstr_mgr_email, dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr,fs_district_nbr,"+
+				" fs_region_nbr, latitude, longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd)"+
+				"select store_nbr, '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', bus_segment, city, county_cd, county_cd_dsc, division_name, dstr_mgr_email, "
+				+ "dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr, fs_district_nbr, fs_region_nbr, latitude,"
+				+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd  from "+feedStore;
+
+		
+		//System.out.println(sql);
+		jdbcTemplate.execute(sql);
+		 
+	}
 
 	public void cleanup(File file1, File file2) {
 		if (file1.delete() && file2.delete()) {
@@ -204,4 +252,9 @@ public class Services {
 			e.printStackTrace();
 		}
 	}
+
+
+
+
+	
 }

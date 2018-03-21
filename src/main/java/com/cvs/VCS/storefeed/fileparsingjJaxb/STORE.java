@@ -6,7 +6,7 @@
 //
 
 
-package com.cvs.PIM.parseXml;
+package com.cvs.vcs.storefeed.fileparsingjJaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

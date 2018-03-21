@@ -1,4 +1,4 @@
-package com.cvs.PIM;
+package com.cvs.vcs.storefeed;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +9,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @ComponentScan(basePackages = {"com.cvs.*"})
-public class PIMApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PIMApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

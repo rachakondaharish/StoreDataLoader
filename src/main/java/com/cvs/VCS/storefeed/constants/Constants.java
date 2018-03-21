@@ -1,4 +1,4 @@
-package com.cvs.PIM.constants;
+package com.cvs.vcs.storefeed.constants;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

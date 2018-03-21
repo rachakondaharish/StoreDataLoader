@@ -1,11 +1,11 @@
-package com.cvs.PIM.entities;
+package com.cvs.vcs.storefeed.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.cvs.PIM.auditing.Auditable;
+import com.cvs.vcs.storefeed.auditing.Auditable;
 
 
 @Table

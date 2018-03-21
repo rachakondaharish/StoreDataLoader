@@ -1,4 +1,4 @@
-package com.cvs.PIM.auditing;
+package com.cvs.vcs.storefeed.auditing;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.AuditorAware;

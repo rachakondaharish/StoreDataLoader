@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.cvscaremark.com/retail/mdm/entities/1_0", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.cvs.PIM.parseXml;
+package com.cvs.vcs.storefeed.fileparsingjJaxb;
