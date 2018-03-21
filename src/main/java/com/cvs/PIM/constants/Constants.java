@@ -17,6 +17,5 @@ public class Constants {
 
 	@Value("${load.records.temp.table.count}")
 	public int tempTableCount;
-	@Value("${load.records.final.table.count}")
-	public int finalTableCount;
+	
 }

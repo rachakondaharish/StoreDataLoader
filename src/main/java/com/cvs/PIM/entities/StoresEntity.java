@@ -9,11 +9,10 @@ import com.cvs.PIM.auditing.Auditable;
 
 
 @Table
-@Entity(name = "feed_store")
+@Entity(name = "Store")
 public class StoresEntity extends Auditable<String>  {
 	
-	@Column(name="STORE_Id")
-	int storeId;
+	
 	@Id
 	@Column(name="STORE_nbr")
 	int STR_NBR;
@@ -68,13 +67,7 @@ public class StoresEntity extends Auditable<String>  {
 	@Column(name="DSTR_MGR_EMAIL")
     String DSTR_MGR_EMAIL;
 	
-	public int getStoreId() {
-		return storeId;
-	}
-
-	public void setStoreId(int storeId) {
-		this.storeId = storeId;
-	}
+	
 
 	public int getSTR_NBR() {
 		return STR_NBR;

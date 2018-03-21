@@ -8,15 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
-@Entity(name = "Store")
+@Entity(name = "Feed_store")
 public class StoreTempEntity {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public int id;
-	@Column(name="STORE_Id")
-	int storeId;
 	@Column(name="STORE_nbr")
 	int STR_NBR;
 	@Column(name="STATUS")
@@ -73,18 +69,7 @@ public class StoreTempEntity {
     Boolean deleteStatus = false;
 	
     
-    public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getStoreId() {
-		return storeId;
-	}
-	public void setStoreId(int storeId) {
-		this.storeId = storeId;
-	}
+   
 	public int getSTR_NBR() {
 		return STR_NBR;
 	}

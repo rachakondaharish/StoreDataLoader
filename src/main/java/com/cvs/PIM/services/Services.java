@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -36,25 +36,26 @@ public class Services {
 	Constants constants;
 
 	
-	public void xmlToDatabaseUsingJAXB(File fXmlFile) {
+	public void xmlReadUsingJAXB(File fXmlFile) {
 		JAXBContext jc;
 		try {
 			
-			storeTempRepository.deleteAll();
-			System.out.println("Deleting temp table records.");
+			storeTempRepository.deleteAll(); //Deleteing all records temp table before new load
+			System.out.println("Deleting Feed_store table records.");
+			
 			jc = JAXBContext.newInstance(STORES.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			STORES stores = (STORES) unmarshaller
 					.unmarshal(fXmlFile);
-			Marshaller marshaller = jc.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			//Marshaller marshaller = jc.createMarshaller();
+			//marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			List<StoreTempEntity> storeTempList = new ArrayList<>();
-			
+			long millis = System.currentTimeMillis();
 			for(int i=0; i<stores.getSTORE().size(); i++ ){
 				STORE xmlStore = stores.getSTORE().get(i);
 				StoreTempEntity store = new StoreTempEntity();
 
-				store.setStoreId(xmlStore.getSTATCD());
+				
 				store.setSTR_NBR(Integer.parseInt(xmlStore.getSTRNBR()));
 				store.setSTAT_CD(xmlStore.getSTATCD().toString());
 				store.setSTREET_ADDR1(xmlStore.getSTREETADDR1());
@@ -83,6 +84,8 @@ public class Services {
 				storeTempList.add(store);
 				
 				if (i % constants.tempTableCount == 0) {
+					System.out.println("Millis : "+ (System.currentTimeMillis()-millis));
+					millis = System.currentTimeMillis();
 					storeTempRepository.save(storeTempList);
 					System.out.println("Inserted to temp table: "+i+" records "+new Date());
 					storeTempList.clear();
@@ -94,7 +97,7 @@ public class Services {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Autowired
     JdbcTemplate jdbcTemplate;
 	@Value("${spring.datasource.username}")
@@ -111,35 +114,35 @@ public class Services {
 		String cuurentDateTime=sdf.format(new Date());
 
 		
-		int count = jdbcTemplate.queryForObject("select count(*) from harish_store", Integer.class);
+		int count = jdbcTemplate.queryForObject("select count(*) from "+feedStore, Integer.class);
 		System.out.println("Copying records: "+count);
-		jdbcTemplate.execute("DELETE FROM harish_1");
-		String sql = "insert into "+feedStore+" (store_nbr, created_by, created_date, last_modified_by, last_modified_date, bus_segment, city, county_cd, county_cd_dsc,"
+		jdbcTemplate.execute("DELETE FROM "+finalStore);
+		String sql = "insert into "+finalStore+" (store_nbr, created_by, created_date, last_modified_by, last_modified_date, bus_segment, city, county_cd, county_cd_dsc,"
 				+"division_name, dstr_mgr_email, dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr,fs_district_nbr,"+
-				" fs_region_nbr, latitude, longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd, store_id)"+
+				" fs_region_nbr, latitude, longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd)"+
 				"select store_nbr, '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', '"+ createAndUpdatedBy +  "', '"+ cuurentDateTime+  "', bus_segment, city, county_cd, county_cd_dsc, division_name, dstr_mgr_email, "
 				+ "dstr_mgr_first_name, dstr_mgr_last_name, dstr_mgr_phone_nbr, facility_typ_cd, facility_typ_dsc, fs_area_nbr, fs_district_nbr, fs_region_nbr, latitude,"
-				+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd, store_id  from "+finalStore;
+				+ "longitude, opco_dsc, rx_area_nbr, rx_district_nbr, rx_phone_nbr, rx_region_nbr, state_cd, status, address_line_1, zip_cd  from "+feedStore;
 
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		jdbcTemplate.execute(sql);
 		 
 	}
-	
-	
-	
-	public void moveFromTempToStoresUsingJPA() {
-		int k = storeTempRepository.findAll().size()/100;;
+	public void moveFromTempToStores() {
+		
+		storesRepository.deleteAll(); //Deleteing all records final table before new load
+		int k = storeTempRepository.findAll().size()/100;
+		long millis = System.currentTimeMillis();
 		for(int j = 0; j<=k+1; j++ ){
 			List<StoreTempEntity> tempList = storeTempRepository.findTop100ByDeleteStatus(false);
 			System.out.println("Records list: " + tempList.size());
 			List<StoresEntity> storesEntityList = new ArrayList<>();
 			List<StoreTempEntity> storeTempEntityList = new ArrayList<>();
-			for (int i = 1; i < tempList.size(); i++) {
+			for (int i = 0; i < tempList.size(); i++) {
 				StoreTempEntity storeTempEntity = tempList.get(i);
 				StoresEntity storesEntity = new StoresEntity();
-				storesEntity.setStoreId(storeTempEntity.getStoreId());
+				
 				storesEntity.setSTR_NBR(storeTempEntity.getSTR_NBR());
 				storesEntity.setSTAT_CD(storeTempEntity.getSTAT_CD());
 				storesEntity.setSTREET_ADDR1(storeTempEntity.getSTREET_ADDR1());
@@ -177,8 +180,9 @@ public class Services {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			     System.out.println("100 Records moved to final table: "+new Date());
+			  System.out.println("100 Records moved to Final table: Milliseconds : "+ (System.currentTimeMillis()-millis));
+			 
+				millis = System.currentTimeMillis();
 			
 		}
 

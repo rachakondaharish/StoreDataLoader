@@ -15,28 +15,28 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-// Moving necessary fields to super class and providing AuditingEntityListener entity listner class
+// Moving necessary fields to super class and providing AuditingEntityListener entity listener class
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable<U> {
 
     @CreatedBy
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+    @Column(name="created_by",columnDefinition = "VARCHAR(255) ")
     protected U CreatedBy;
 
     @CreatedDate
     @Temporal(TIMESTAMP)
-    @Column(columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP", updatable = false)
+    @Column(name="created_date",columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP", updatable = false)
     protected Date CreatedDate;
 
     @LastModifiedBy
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+    @Column(name="last_modified_by",columnDefinition = "VARCHAR(255) NOT NULL")
     protected U LastModifiedBy;
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)
-    @Column(columnDefinition = "datetime NOT NULL")
+    @Column(name="last_modified_date",columnDefinition = "datetime NOT NULL")
     protected Date LastModifiedDate;
 
 	public U getCreatedBy() {
